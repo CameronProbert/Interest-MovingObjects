@@ -11,11 +11,11 @@ import main.patterns.centremass.CentreOfMassPattern;
 
 public class DrawingPad {
 
-	JFrame frame;
-	JPanel panel;
-	DrawingPattern pattern;
+	private JFrame frame;
+	private JPanel panel;
+	private DrawingPattern pattern;
 
-	Loop loop;
+	private Loop loop;
 
 	private DrawingPad() {
 		createFrame();
