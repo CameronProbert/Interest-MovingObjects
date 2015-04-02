@@ -33,6 +33,7 @@ public class BouncingBallPattern extends DrawingPattern {
 	}
 
 	private void stepBall() {
+		// Decides if the direction should be changed (hits the wall)
 		if (centreX - radius < 0) {
 			// Hits the left side (direction is between 180 and 0)
 			direction = (180 - direction) % 360;
