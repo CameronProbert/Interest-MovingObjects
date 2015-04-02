@@ -1,0 +1,35 @@
+package main.patterns;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Random;
+
+public abstract class DrawingPattern {
+
+	/**
+	 * Do processing for a frame of the pattern
+	 */
+	public abstract void step();
+
+	/**
+	 * Draw the pattern
+	 */
+	public abstract void draw(Graphics g);
+	
+	protected Color generateRandomColor(Color mix) {
+	    Random random = new Random();
+	    int red = random.nextInt(256);
+	    int green = random.nextInt(256);
+	    int blue = random.nextInt(256);
+
+	    // mix the color
+	    if (mix != null) {
+	        red = (red + mix.getRed()) / 2;
+	        green = (green + mix.getGreen()) / 2;
+	        blue = (blue + mix.getBlue()) / 2;
+	    }
+
+	    Color color = new Color(red, green, blue);
+	    return color;
+	}
+}
