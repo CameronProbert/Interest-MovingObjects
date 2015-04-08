@@ -16,7 +16,7 @@ public abstract class DrawingPattern {
 	 */
 	public abstract void draw(Graphics g);
 	
-	protected Color generateRandomColor(Color mix) {
+	protected Color generateRandomMixedColor(Color mix) {
 	    Random random = new Random();
 	    int red = random.nextInt(256);
 	    int green = random.nextInt(256);
