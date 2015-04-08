@@ -27,7 +27,7 @@ public class BouncingBallPattern extends DrawingPattern {
 		diameter = radius * 2;
 		centreX = (Math.random() * (width - diameter - 4)) + radius + 1;
 		centreY = (Math.random() * (height - diameter - 4)) + radius + 1;
-		colour = generateRandomColor(Color.WHITE);
+		colour = generateRandomMixedColor(Color.WHITE);
 		velocity = Math.random() * 5 + 5;
 		direction = Math.random() * 360;
 	}
@@ -37,19 +37,19 @@ public class BouncingBallPattern extends DrawingPattern {
 		if (centreX - radius < 0) {
 			// Hits the left side (direction is between 180 and 0)
 			direction = (180 - direction) % 360;
-			colour = generateRandomColor(Color.WHITE);
+			colour = generateRandomMixedColor(Color.WHITE);
 		} else if (centreX + radius > width) {
 			// Hits the right side (direction is between 0 and 180)
 			direction = (180 - direction) % 360;
-			colour = generateRandomColor(Color.WHITE);
+			colour = generateRandomMixedColor(Color.WHITE);
 		} else if (centreY - radius < 0) {
 			// Hits the top (direction is between 270 and 90)
 			direction = (360 - direction) % 360;
-			colour = generateRandomColor(Color.WHITE);
+			colour = generateRandomMixedColor(Color.WHITE);
 		} else if (centreY + radius > height) {
 			// Hits the bottom (direction is between 90 and 270)
 			direction = (360 - direction) % 360;
-			colour = generateRandomColor(Color.WHITE);
+			colour = generateRandomMixedColor(Color.WHITE);
 		}
 		// Move the ball
 		centreX += velocity * Math.cos(Math.toRadians(direction));
