@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import main.patterns.DrawingPattern;
 import main.patterns.bouncingball.BouncingBallPattern;
 import main.patterns.centremass.CentreOfMassPattern;
+import main.patterns.movingorbit.MovingOrbitPattern;
 
 public class DrawingPad {
 
