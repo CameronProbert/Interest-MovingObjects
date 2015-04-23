@@ -6,6 +6,9 @@ import main.patterns.DrawingPattern;
 
 public class CentreOfMassPattern extends DrawingPattern {
 
+	private double width;
+	private double height;
+
 	// Centre of Mass
 	private double x;
 	private double y;
@@ -22,8 +25,11 @@ public class CentreOfMassPattern extends DrawingPattern {
 	// Orb 4
 	// Orb 5
 
-	public CentreOfMassPattern() {
-
+	public CentreOfMassPattern(double width, double height) {
+		this.width = width;
+		this.height = height;
+		initialiseBall();
+		initialiseCentreOfRotation();
 	}
 
 	@Override
