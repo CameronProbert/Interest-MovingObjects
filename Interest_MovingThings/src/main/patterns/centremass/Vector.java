@@ -10,12 +10,12 @@ public class Vector {
 		this.y = y;
 	}
 	
-	public Vector add(Vector... others){
+	public Vector add(Orb... others){
 		double sumX = x;
 		double sumY = y;
-		for (Vector other : others){
-			sumX += other.getX();
-			sumY += other.getY();
+		for (Orb other : others){
+			sumX += other.getVector().getX();
+			sumY += other.getVector().getY();
 		}
 		return new Vector(sumX, sumY);
 	}
