@@ -10,14 +10,14 @@ public class Orb {
 	private double centreX;
 	private double centreY;
 	private double magnitude;
-	private Vector vector;
+	private CartesianVector vector;
 	private Color colour;
 
 	public Orb(double centreX, double centreY) {
 		this.centreX = centreX;
 		this.centreY = centreY;
 		double velocity = Math.random() * 5 + 5;
-		this.vector = new Vector(Math.sin(velocity), Math.cos(velocity));
+		this.vector = new CartesianVector(Math.sin(velocity), Math.cos(velocity));
 		this.magnitude = Math.random() * 7.5 + 5;
 		this.colour = DrawingPattern.generateRandomMixedColor(Color.white);
 	}
@@ -41,7 +41,7 @@ public class Orb {
 		return centreY;
 	}
 
-	public Vector getVector() {
+	public CartesianVector getVector() {
 		return vector;
 	}
 
@@ -57,7 +57,7 @@ public class Orb {
 		this.centreY = centreY;
 	}
 
-	public void setVector(Vector vector) {
+	public void setVector(CartesianVector vector) {
 		this.vector = vector;
 	}
 

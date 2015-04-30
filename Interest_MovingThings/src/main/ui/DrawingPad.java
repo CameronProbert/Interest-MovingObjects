@@ -16,7 +16,8 @@ public class DrawingPad implements KeyListener {
 
 	private JFrame frame;
 	private JPanel panel;
-	private DrawingPattern pattern;
+
+	// private DrawingPattern pattern;
 
 	private enum Patterns {
 		bouncingBall, centreOfMass, movingOrbit
@@ -40,16 +41,17 @@ public class DrawingPad implements KeyListener {
 		frame = new JFrame();
 		frame.setIgnoreRepaint(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addKeyListener(this);
 	}
 
 	private void createPanel() {
 		panel = new JPanel() {
 			@Override
 			public void paintComponent(Graphics g) {
-				if (pattern != null) {
+				if (loop.getInternalPattern() != null) {
 					java.awt.Image offscreen = createImage(600, 600);
 					Graphics offScrG = offscreen.getGraphics();
-					drawImage(pattern, offScrG);
+					drawImage(loop.getInternalPattern(), offScrG);
 					g.drawImage(offscreen, 0, 0, this);
 				}
 			}
@@ -73,11 +75,7 @@ public class DrawingPad implements KeyListener {
 	}
 
 	private void startLoop(DrawingPattern pattern) {
-		if (loop != null) {
-			Thread.currentThread().isInterrupted();
-		}
-		this.pattern = pattern;
-		loop = new Loop();
+		loop = new Loop(pattern);
 		Thread thread = new Thread(loop);
 		thread.run();
 	}
@@ -114,15 +112,49 @@ public class DrawingPad implements KeyListener {
 		if (patternIndex > Patterns.values().length - 1) {
 			patternIndex = 0;
 		}
+		switch (Patterns.values()[patternIndex]) {
+		case bouncingBall:
+			newPattern = new BouncingBallPattern(panel.getWidth(),
+					panel.getHeight());
+			break;
+		case centreOfMass:
+			newPattern = new CentreOfMassPattern(panel.getWidth(),
+					panel.getHeight());
+			break;
+		case movingOrbit:
+			newPattern = new MovingOrbitPattern(panel.getWidth(),
+					panel.getHeight());
+			break;
+		default:
+			break;
+
+		}
 		restartPattern(newPattern);
 	}
 
 	private void restartPattern() {
-
+		DrawingPattern newPattern = null;
+		switch (Patterns.values()[patternIndex]) {
+		case bouncingBall:
+			newPattern = new BouncingBallPattern(panel.getWidth(),
+					panel.getHeight());
+			break;
+		case centreOfMass:
+			newPattern = new CentreOfMassPattern(panel.getWidth(),
+					panel.getHeight());
+			break;
+		case movingOrbit:
+			newPattern = new MovingOrbitPattern(panel.getWidth(),
+					panel.getHeight());
+			break;
+		default:
+			break;
+		}
+		loop.setNewPattern(newPattern);
 	}
 
 	private void restartPattern(DrawingPattern pattern) {
-		startLoop(pattern);
+		loop.setNewPattern(pattern);
 	}
 
 	@Override
@@ -158,10 +190,30 @@ public class DrawingPad implements KeyListener {
 
 	private class Loop implements Runnable {
 
+		private DrawingPattern internalPattern;
+		private DrawingPattern newPattern;
+
+		private Loop(DrawingPattern pattern) {
+			super();
+			internalPattern = pattern;
+		}
+		
+		private void setNewPattern(DrawingPattern pattern){
+			newPattern = pattern;
+		}
+
+		private DrawingPattern getInternalPattern() {
+			return internalPattern;
+		}
+
 		@Override
 		public void run() {
 			while (true) {
-				pattern.step();
+				if (newPattern != null) {
+					internalPattern = newPattern;
+					newPattern = null;
+				}
+				internalPattern.step();
 				frame.repaint();
 				try {
 					Thread.sleep(20);
@@ -171,5 +223,4 @@ public class DrawingPad implements KeyListener {
 			}
 		}
 	}
-
 }
