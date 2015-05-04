@@ -29,8 +29,7 @@ public class MovingOrbitPattern extends DrawingPattern {
 	private Color ballColour;
 
 	public MovingOrbitPattern(double width, double height) {
-		this.width = width;
-		this.height = height;
+		super(width, height);
 		initialiseBall();
 		initialiseCentreOfRotation();
 	}
@@ -75,7 +74,7 @@ public class MovingOrbitPattern extends DrawingPattern {
 		// Move the centre of rotation
 		corCentreX += corVelocity * Math.cos(Math.toRadians(corDirection));
 		corCentreY += corVelocity * Math.sin(Math.toRadians(corDirection));
-		
+
 		// Move the ball
 		ballDirection += rotationSpeed;
 	}
@@ -88,8 +87,10 @@ public class MovingOrbitPattern extends DrawingPattern {
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(ballColour);
-		double centreX = corCentreX + ORBIT_DIST * Math.cos(Math.toRadians(ballDirection));
-		double centreY = corCentreY + ORBIT_DIST * Math.sin(Math.toRadians(ballDirection));
+		double centreX = corCentreX + ORBIT_DIST
+				* Math.cos(Math.toRadians(ballDirection));
+		double centreY = corCentreY + ORBIT_DIST
+				* Math.sin(Math.toRadians(ballDirection));
 		g.fillOval((int) centreX - (int) ballRadius, (int) centreY
 				- (int) ballRadius, (int) ballRadius * 2, (int) ballRadius * 2);
 	}

@@ -5,6 +5,14 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public abstract class DrawingPattern {
+	
+	protected double width;
+	protected double height;
+	
+	public DrawingPattern(double width, double height){
+		this.width = width;
+		this.height = height;
+	}
 
 	/**
 	 * Do processing for a frame of the pattern

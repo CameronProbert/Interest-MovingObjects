@@ -21,8 +21,7 @@ public class BouncingBallPattern extends DrawingPattern {
 	private double velocity;
 
 	public BouncingBallPattern(double width, double height) {
-		this.width = width;
-		this.height = height;
+		super(width, height);
 		radius = (Math.random() * 10) + 25; // radius is 25-35 in size
 		diameter = radius * 2;
 		centreX = (Math.random() * (width - diameter - 4)) + radius + 1;

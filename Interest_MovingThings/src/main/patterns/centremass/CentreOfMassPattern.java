@@ -1,6 +1,5 @@
 package main.patterns.centremass;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +19,9 @@ public class CentreOfMassPattern extends DrawingPattern {
 	private static final double ATTRACT_MAGNITUDE = 1000;
 	private static final int MIN_NUM_ORBS = 5;
 	private static final int NUM_ORB_VARIANCE = 6;
-	private double width;
-	private double height;
+
+	private double paddingX;
+	private double paddingY;
 
 	// Centre of Mass
 	private double centreX;
@@ -40,8 +40,9 @@ public class CentreOfMassPattern extends DrawingPattern {
 	 * @param height
 	 */
 	public CentreOfMassPattern(double width, double height) {
-		this.width = width;
-		this.height = height;
+		super(width, height);
+		paddingX = width / 5;
+		paddingY = height / 5;
 		orbs = new ArrayList<Orb>();
 		initialiseCentre();
 		initialiseOrbs();
@@ -51,8 +52,8 @@ public class CentreOfMassPattern extends DrawingPattern {
 	 * Creates the invisible centre value.
 	 */
 	private void initialiseCentre() {
-		centreX = Math.random() * (width - 1) + 1;
-		centreY = Math.random() * (height - 1) + 1;
+		centreX = Math.random() * (width - paddingX * 4) + paddingX*2;
+		centreY = Math.random() * (height - paddingY * 4) + paddingY*2;
 		velocity = Math.random() * 10 + 5;
 		centreVector = new CartesianVector(Math.cos(velocity),
 				Math.sin(velocity));
@@ -64,8 +65,8 @@ public class CentreOfMassPattern extends DrawingPattern {
 	private void initialiseOrbs() {
 		int numOrbs = (int) (Math.random() * NUM_ORB_VARIANCE + MIN_NUM_ORBS);
 		for (int i = 0; i < numOrbs; i++) {
-			double orbX = Math.random() * (width - 1) + 1;
-			double orbY = Math.random() * (height - 1) + 1;
+			double orbX = centreX + (Math.random() * paddingX - paddingX / 2);
+			double orbY = centreY + (Math.random() * paddingY - paddingY / 2);
 			orbs.add(new Orb(orbX, orbY));
 		}
 	}
@@ -76,10 +77,10 @@ public class CentreOfMassPattern extends DrawingPattern {
 	@Override
 	public void step() {
 		stepCentre();
-//		System.out.println("CentreX: " + (int) centreX + " || CentreY: "
-//				+ (int) centreY);
+		// System.out.println("CentreX: " + (int) centreX + " || CentreY: "
+		// + (int) centreY);
 		for (Orb orb : orbs) {
-//			System.out.println("Vector = " + orb.getVector().toString());
+			// System.out.println("Vector = " + orb.getVector().toString());
 
 			Orb[] otherOrbs = new Orb[this.orbs.size() - 1];
 			int indexModifier = 0;
@@ -126,10 +127,10 @@ public class CentreOfMassPattern extends DrawingPattern {
 	 */
 	private void stepCentre() {
 		// Decides if the direction should be changed (hits the wall)
-		if (centreX < 0 || centreX > width) {
+		if (centreX - paddingX*2 < 0 || centreX - paddingY*2 > width) {
 			// Hits the left or right side
 			centreVector.setX(-centreVector.getX());
-		} else if (centreY < 0 || centreY > height) {
+		} else if (centreY - paddingY*2 < 0 || centreY + paddingY*2 > height) {
 			// Hits the top or bottom
 			centreVector.setY(-centreVector.getY());
 		}
