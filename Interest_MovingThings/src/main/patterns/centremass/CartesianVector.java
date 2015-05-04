@@ -22,8 +22,8 @@ public class CartesianVector {
 		double sumY = y;
 		for (Orb other : others) {
 			if (other != null) {
-				sumX += other.getVector().getX();
-				sumY += other.getVector().getY();
+				sumX += 10/other.getCentreX();
+				sumY += 10/other.getCentreY();
 			}
 		}
 		return new CartesianVector(sumX, sumY);
@@ -53,6 +53,14 @@ public class CartesianVector {
 
 	public void setY(double y) {
 		this.y = y;
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("Cartesian Vector");
+		sb.append(" || X: " + (int)x);
+		sb.append(" || Y: " + (int)y);
+		return sb.toString();
 	}
 
 }

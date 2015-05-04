@@ -13,11 +13,11 @@ import main.patterns.centremass.CentreOfMassPattern;
 import main.patterns.movingorbit.MovingOrbitPattern;
 
 public class DrawingPad implements KeyListener {
+	
+	private final int sleepTime;
 
 	private JFrame frame;
 	private JPanel panel;
-
-	// private DrawingPattern pattern;
 
 	private enum Patterns {
 		bouncingBall, centreOfMass, movingOrbit
@@ -27,8 +27,9 @@ public class DrawingPad implements KeyListener {
 
 	private Loop loop;
 
-	private DrawingPad() {
+	private DrawingPad(int sleepTime) {
 		patternIndex = 0;
+		this.sleepTime = sleepTime;
 		createFrame();
 		createPanel();
 		createButtons();
@@ -46,7 +47,7 @@ public class DrawingPad implements KeyListener {
 
 	private void createPanel() {
 		panel = new JPanel() {
-			
+
 			// Automatically generated UID
 			private static final long serialVersionUID = 8985280854150377230L;
 
@@ -188,7 +189,12 @@ public class DrawingPad implements KeyListener {
 
 	// //////////////////////////MAIN/////////////////////////////////
 	public static void main(String[] args) {
-		new DrawingPad();
+		if (args.length == 1) {
+			int sleepTime = Integer.parseInt(args[0]);
+			new DrawingPad(sleepTime);
+		} else {
+			new DrawingPad(20);
+		}
 
 	}
 
@@ -201,8 +207,8 @@ public class DrawingPad implements KeyListener {
 			super();
 			internalPattern = pattern;
 		}
-		
-		private void setNewPattern(DrawingPattern pattern){
+
+		private void setNewPattern(DrawingPattern pattern) {
 			newPattern = pattern;
 		}
 
@@ -220,7 +226,7 @@ public class DrawingPad implements KeyListener {
 				internalPattern.step();
 				frame.repaint();
 				try {
-					Thread.sleep(20);
+					Thread.sleep(sleepTime);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
