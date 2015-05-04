@@ -46,6 +46,10 @@ public class DrawingPad implements KeyListener {
 
 	private void createPanel() {
 		panel = new JPanel() {
+			
+			// Automatically generated UID
+			private static final long serialVersionUID = 8985280854150377230L;
+
 			@Override
 			public void paintComponent(Graphics g) {
 				if (loop.getInternalPattern() != null) {
