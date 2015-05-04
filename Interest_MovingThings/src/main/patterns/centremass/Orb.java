@@ -24,6 +24,8 @@ public class Orb {
 
 	public void step(Orb[] otherOrbs) {
 		setVector(this.vector.add(otherOrbs));
+		centreX += vector.getX()/100;
+		centreY += vector.getY()/100;
 	}
 
 	public void draw(Graphics g) {

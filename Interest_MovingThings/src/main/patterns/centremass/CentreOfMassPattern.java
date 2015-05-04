@@ -14,17 +14,33 @@ public class CentreOfMassPattern extends DrawingPattern {
 	// Centre of Mass
 	private double centreX;
 	private double centreY;
-	private double direction; // Direction in degrees
 	private double velocity;
+	private CartesianVector centreVector;
 
-	List<Orb> orbs;
+	private List<Orb> orbs;
 
 	public CentreOfMassPattern(double width, double height) {
 		this.width = width;
 		this.height = height;
 		orbs = new ArrayList<Orb>();
-		// initialiseBall();
-		// initialiseCentreOfRotation();
+		initialiseCentre();
+		initialiseOrbs();
+	}
+
+	private void initialiseCentre() {
+		centreX = Math.random() * (width - 1) + 1;
+		centreY = Math.random() * (height - 1) + 1;
+		velocity = Math.random() * 5 + 5;
+		centreVector = new CartesianVector(Math.cos(velocity), Math.sin(velocity));
+	}
+
+	private void initialiseOrbs() {
+		int numOrbs = (int) (Math.random() * 5 + 5);
+		for (int i = 0; i < numOrbs; i++) {
+			double orbX = Math.random() * (width - 1) + 1;
+			double orbY = Math.random() * (height - 1) + 1;
+			orbs.add(new Orb(orbX, orbY));
+		}
 	}
 
 	@Override
@@ -54,22 +70,16 @@ public class CentreOfMassPattern extends DrawingPattern {
 
 	private void stepCentre() {
 		// Decides if the direction should be changed (hits the wall)
-		if (centreX < 0) {
-			// Hits the left side (direction is between 180 and 0)
-			direction = (180 - direction) % 360;
-		} else if (centreX > width) {
-			// Hits the right side (direction is between 0 and 180)
-			direction = (180 - direction) % 360;
-		} else if (centreY < 0) {
-			// Hits the top (direction is between 270 and 90)
-			direction = (360 - direction) % 360;
-		} else if (centreY > height) {
-			// Hits the bottom (direction is between 90 and 270)
-			direction = (360 - direction) % 360;
+		if (centreX < 0 || centreX > width) {
+			// Hits the left or right side
+			centreVector.setX(-centreVector.getX());
+		} else if (centreY < 0 || centreY > height) {
+			// Hits the top or bottom
+			centreVector.setY(-centreVector.getY());
 		}
 		// Move the ball
-		centreX += velocity * Math.cos(Math.toRadians(direction));
-		centreY += velocity * Math.sin(Math.toRadians(direction));
+		centreX += centreVector.getX();
+		centreY += centreVector.getY();
 	}
 
 }
