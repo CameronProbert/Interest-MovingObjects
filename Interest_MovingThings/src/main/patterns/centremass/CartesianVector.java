@@ -12,23 +12,23 @@ public class CartesianVector {
 	private double x;
 	private double y;
 
+	/**
+	 * Creates a vector with the given values
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public CartesianVector(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public CartesianVector add(Orb... others) {
-		double sumX = x;
-		double sumY = y;
-		for (Orb other : others) {
-			if (other != null) {
-				sumX += 10/other.getCentreX();
-				sumY += 10/other.getCentreY();
-			}
-		}
-		return new CartesianVector(sumX, sumY);
-	}
-
+	/**
+	 * Adds an array of CartesianVectors to this vector and returns the result
+	 * 
+	 * @param others
+	 * @return
+	 */
 	public CartesianVector add(CartesianVector... others) {
 		double sumX = x;
 		double sumY = y;
@@ -39,27 +39,50 @@ public class CartesianVector {
 		return new CartesianVector(sumX, sumY);
 	}
 
+	/**
+	 * Returns the x component of the vector
+	 * 
+	 * @return
+	 */
 	public double getX() {
 		return x;
 	}
 
+	/**
+	 * Returns the y component of the vector
+	 * 
+	 * @return
+	 */
 	public double getY() {
 		return y;
 	}
 
+	/**
+	 * Sets the x component of the vector
+	 * 
+	 * @param x
+	 */
 	public void setX(double x) {
 		this.x = x;
 	}
 
+	/**
+	 * Sets the y component of the vector
+	 * 
+	 * @param y
+	 */
 	public void setY(double y) {
 		this.y = y;
 	}
-	
-	public String toString(){
+
+	/**
+	 * Returns a representation of this vector in string format
+	 */
+	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Cartesian Vector");
-		sb.append(" || X: " + (int)x);
-		sb.append(" || Y: " + (int)y);
+		sb.append(" || X: " + (int) x);
+		sb.append(" || Y: " + (int) y);
 		return sb.toString();
 	}
 
