@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.patterns.DrawingPattern;
+import main.patterns.utility.CartesianVector;
+import main.patterns.utility.Orb;
 
 /**
  * The CentreOfMassPattern contains an invisible centre point with multiple

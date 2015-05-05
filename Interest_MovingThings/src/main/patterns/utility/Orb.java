@@ -1,4 +1,4 @@
-package main.patterns.centremass;
+package main.patterns.utility;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,7 +17,7 @@ import main.patterns.DrawingPattern;
 public class Orb {
 
 	// The higher this value the LESS they repel each other
-	private static final double REPEL_MAGNITUDE = 8000;
+	private static final double REPEL_MAGNITUDE = 15000;
 
 	private double centreX;
 	private double centreY;
@@ -52,13 +52,15 @@ public class Orb {
 
 		// For each orb modify the vector based on the distance between the orbs
 		for (Orb otherOrb : otherOrbs) {
-			double repelX = Math.pow((centreX - otherOrb.getCentreX())
-					/ REPEL_MAGNITUDE, 2);
+			double repelX = Math
+					.sqrt(Math.abs(centreX - otherOrb.getCentreX()))
+					/ REPEL_MAGNITUDE;
 			if (centreX < otherOrb.getCentreX()) {
 				repelX *= -1;
 			}
-			double repelY = Math.pow((centreY - otherOrb.getCentreY())
-					/ REPEL_MAGNITUDE, 2);
+			double repelY = Math
+					.sqrt(Math.abs(centreY - otherOrb.getCentreY()))
+					/ REPEL_MAGNITUDE;
 			if (centreY < otherOrb.getCentreY()) {
 				repelY *= -1;
 			}

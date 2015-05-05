@@ -1,4 +1,4 @@
-package main.patterns.centremass;
+package main.patterns.utility;
 
 /**
  * The CartesianVector is a very simple, lightweight class that stores x and y
