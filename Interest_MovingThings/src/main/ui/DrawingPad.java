@@ -13,8 +13,18 @@ import main.patterns.centremass.CentreOfMassPattern;
 import main.patterns.linepattern.LinePattern;
 import main.patterns.movingorbit.MovingOrbitPattern;
 
+/**
+ * A program that displays numerous patterns (using strategies) and uses
+ * threading to display these patterns in a GUI. You can use the left, right and
+ * down arrow keys to navigate to the previous and next pattern, and restart the
+ * current pattern.
+ * 
+ * @author Cameron Probert
+ *
+ */
 public class DrawingPad implements KeyListener {
-	
+
+	// Time to wait
 	private final int sleepTime;
 
 	private JFrame frame;
@@ -28,6 +38,11 @@ public class DrawingPad implements KeyListener {
 
 	private Loop loop;
 
+	/**
+	 * Constructs the drawing pad
+	 * 
+	 * @param sleepTime
+	 */
 	private DrawingPad(int sleepTime) {
 		patternIndex = 0;
 		this.sleepTime = sleepTime;
@@ -39,6 +54,9 @@ public class DrawingPad implements KeyListener {
 		startLoop(new BouncingBallPattern(panel.getWidth(), panel.getHeight()));
 	}
 
+	/**
+	 * Initialises the frame
+	 */
 	private void createFrame() {
 		frame = new JFrame();
 		frame.setIgnoreRepaint(true);
@@ -46,6 +64,9 @@ public class DrawingPad implements KeyListener {
 		frame.addKeyListener(this);
 	}
 
+	/**
+	 * Initialises the graphics panel
+	 */
 	private void createPanel() {
 		panel = new JPanel() {
 
@@ -80,12 +101,20 @@ public class DrawingPad implements KeyListener {
 
 	}
 
+	/**
+	 * Starts the loop
+	 * 
+	 * @param pattern
+	 */
 	private void startLoop(DrawingPattern pattern) {
 		loop = new Loop(pattern);
 		Thread thread = new Thread(loop);
-		thread.run();
+		thread.start();
 	}
 
+	/**
+	 * Stops the current pattern and renders the previous one
+	 */
 	private void previousPattern() {
 		DrawingPattern newPattern = null;
 		patternIndex--;
@@ -106,8 +135,7 @@ public class DrawingPad implements KeyListener {
 					panel.getHeight());
 			break;
 		case linePattern:
-			newPattern = new LinePattern(panel.getWidth(),
-					panel.getHeight());
+			newPattern = new LinePattern(panel.getWidth(), panel.getHeight());
 			break;
 		default:
 			break;
@@ -136,8 +164,7 @@ public class DrawingPad implements KeyListener {
 					panel.getHeight());
 			break;
 		case linePattern:
-			newPattern = new LinePattern(panel.getWidth(),
-					panel.getHeight());
+			newPattern = new LinePattern(panel.getWidth(), panel.getHeight());
 			break;
 		default:
 			break;
@@ -160,6 +187,9 @@ public class DrawingPad implements KeyListener {
 		case movingOrbit:
 			newPattern = new MovingOrbitPattern(panel.getWidth(),
 					panel.getHeight());
+			break;
+		case linePattern:
+			newPattern = new LinePattern(panel.getWidth(), panel.getHeight());
 			break;
 		default:
 			break;
