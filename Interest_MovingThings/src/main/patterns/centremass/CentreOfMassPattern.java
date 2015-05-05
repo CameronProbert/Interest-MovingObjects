@@ -28,7 +28,6 @@ public class CentreOfMassPattern extends DrawingPattern {
 	// Centre of Mass
 	private double centreX;
 	private double centreY;
-	private double velocity;
 	private CartesianVector centreVector;
 
 	// A list of all the orbs in the pattern
@@ -54,11 +53,12 @@ public class CentreOfMassPattern extends DrawingPattern {
 	 * Creates the invisible centre value.
 	 */
 	private void initialiseCentre() {
-		centreX = Math.random() * (width - paddingX * 4) + paddingX*2;
-		centreY = Math.random() * (height - paddingY * 4) + paddingY*2;
-		velocity = Math.random() * 10 + 5;
-		centreVector = new CartesianVector(Math.cos(velocity),
-				Math.sin(velocity));
+		centreX = Math.random() * (width - paddingX * 4) + paddingX * 2;
+		centreY = Math.random() * (height - paddingY * 4) + paddingY * 2;
+		double velocity = Math.random() * 10 + 5;
+		double direction = Math.random() * 2 * Math.PI;
+		centreVector = new CartesianVector(velocity * Math.cos(direction),
+				velocity * Math.sin(direction));
 	}
 
 	/**
@@ -129,10 +129,11 @@ public class CentreOfMassPattern extends DrawingPattern {
 	 */
 	private void stepCentre() {
 		// Decides if the direction should be changed (hits the wall)
-		if (centreX - paddingX*2 < 0 || centreX - paddingY*2 > width) {
+		if (centreX - paddingX * 2 < 0 || centreX + paddingY * 2 > width) {
 			// Hits the left or right side
 			centreVector.setX(-centreVector.getX());
-		} else if (centreY - paddingY*2 < 0 || centreY + paddingY*2 > height) {
+		} else if (centreY - paddingY * 2 < 0
+				|| centreY + paddingY * 2 > height) {
 			// Hits the top or bottom
 			centreVector.setY(-centreVector.getY());
 		}

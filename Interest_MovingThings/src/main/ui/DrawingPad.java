@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import main.patterns.DrawingPattern;
 import main.patterns.bouncingball.BouncingBallPattern;
 import main.patterns.centremass.CentreOfMassPattern;
+import main.patterns.linepattern.LinePattern;
 import main.patterns.movingorbit.MovingOrbitPattern;
 
 public class DrawingPad implements KeyListener {
@@ -20,7 +21,7 @@ public class DrawingPad implements KeyListener {
 	private JPanel panel;
 
 	private enum Patterns {
-		bouncingBall, centreOfMass, movingOrbit
+		bouncingBall, centreOfMass, movingOrbit, linePattern
 	}
 
 	private int patternIndex;
@@ -104,6 +105,10 @@ public class DrawingPad implements KeyListener {
 			newPattern = new MovingOrbitPattern(panel.getWidth(),
 					panel.getHeight());
 			break;
+		case linePattern:
+			newPattern = new LinePattern(panel.getWidth(),
+					panel.getHeight());
+			break;
 		default:
 			break;
 
@@ -128,6 +133,10 @@ public class DrawingPad implements KeyListener {
 			break;
 		case movingOrbit:
 			newPattern = new MovingOrbitPattern(panel.getWidth(),
+					panel.getHeight());
+			break;
+		case linePattern:
+			newPattern = new LinePattern(panel.getWidth(),
 					panel.getHeight());
 			break;
 		default:

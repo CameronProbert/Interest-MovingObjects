@@ -81,8 +81,8 @@ public class CartesianVector {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Cartesian Vector");
-		sb.append(" || X: " + (int) x);
-		sb.append(" || Y: " + (int) y);
+		sb.append(" || X: " + x);
+		sb.append(" || Y: " + y);
 		return sb.toString();
 	}
 

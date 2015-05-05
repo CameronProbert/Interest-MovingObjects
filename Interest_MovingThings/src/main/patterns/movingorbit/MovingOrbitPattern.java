@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import main.patterns.DrawingPattern;
+import main.patterns.utility.CartesianVector;
 
 public class MovingOrbitPattern extends DrawingPattern {
 
@@ -11,15 +12,12 @@ public class MovingOrbitPattern extends DrawingPattern {
 	private static final double ORBIT_DIST = BUFFER_SIZE;
 
 	// Bounds
-	private double width;
-	private double height;
 	private double buffer;
 
 	// The centre of mass
 	private double corCentreX;
 	private double corCentreY;
-	private double corDirection;
-	private double corVelocity;
+	private CartesianVector corVector;
 
 	// The ball
 	private double ballDirection;
@@ -39,8 +37,10 @@ public class MovingOrbitPattern extends DrawingPattern {
 				+ ballRadius + buffer + 1;
 		corCentreY = (Math.random() * (height - ballDiameter - 4 - buffer * 2))
 				+ ballRadius + buffer + 1;
-		corVelocity = Math.random() * 10 + 2.5;
-		corDirection = Math.random() * 360;
+		double corVelocity = Math.random() * 20 + 5;
+		double direction = Math.random() * 2 * Math.PI;
+		corVector = new CartesianVector(corVelocity * Math.cos(direction),
+				corVelocity * Math.sin(direction));
 	}
 
 	private void initialiseBall() {
@@ -54,26 +54,18 @@ public class MovingOrbitPattern extends DrawingPattern {
 
 	private void stepBall() {
 		// Decides if the direction should be changed (hits the wall)
-		if (corCentreX - ballRadius < buffer) {
-			// Hits the left side (direction is between 180 and 0)
-			corDirection = (180 - corDirection) % 360;
-			ballColour = generateRandomMixedColor(Color.WHITE);
-		} else if (corCentreX + ballRadius > width - buffer) {
-			// Hits the right side (direction is between 0 and 180)
-			corDirection = (180 - corDirection) % 360;
-			ballColour = generateRandomMixedColor(Color.WHITE);
-		} else if (corCentreY - ballRadius < buffer) {
-			// Hits the top (direction is between 270 and 90)
-			corDirection = (360 - corDirection) % 360;
-			ballColour = generateRandomMixedColor(Color.WHITE);
-		} else if (corCentreY + ballRadius > height - buffer) {
-			// Hits the bottom (direction is between 90 and 270)
-			corDirection = (360 - corDirection) % 360;
-			ballColour = generateRandomMixedColor(Color.WHITE);
+		if (corCentreX - ballRadius < buffer
+				|| corCentreX + ballRadius > width - buffer) {
+			// Hits the left or right side
+			corVector.setX(-corVector.getX());
+		} else if (corCentreY - ballRadius < buffer
+				|| corCentreY + ballRadius > height - buffer) {
+			// Hits the top or bottom
+			corVector.setY(-corVector.getY());
 		}
-		// Move the centre of rotation
-		corCentreX += corVelocity * Math.cos(Math.toRadians(corDirection));
-		corCentreY += corVelocity * Math.sin(Math.toRadians(corDirection));
+		// Move the ball
+		corCentreX += corVector.getX();
+		corCentreY += corVector.getY();
 
 		// Move the ball
 		ballDirection += rotationSpeed;

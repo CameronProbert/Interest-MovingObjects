@@ -1,5 +1,7 @@
 main.patterns
 main.patterns.bouncingball
 main.patterns.centremass
+main.patterns.linepattern
 main.patterns.movingorbit
+main.patterns.utility
 main.ui
