@@ -55,7 +55,7 @@ public class CentreOfMassPattern extends DrawingPattern {
 	private void initialiseCentre() {
 		centreX = Math.random() * (width - paddingX * 4) + paddingX * 2;
 		centreY = Math.random() * (height - paddingY * 4) + paddingY * 2;
-		double velocity = Math.random() * 10 + 5;
+		double velocity = Math.random() * 5 + 2.5;
 		double direction = Math.random() * 2 * Math.PI;
 		centreVector = new CartesianVector(velocity * Math.cos(direction),
 				velocity * Math.sin(direction));

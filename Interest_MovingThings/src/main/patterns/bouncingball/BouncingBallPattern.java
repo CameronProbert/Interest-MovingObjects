@@ -27,7 +27,7 @@ public class BouncingBallPattern extends DrawingPattern {
 		centreX = (Math.random() * (width - diameter - 4)) + radius + 1;
 		centreY = (Math.random() * (height - diameter - 4)) + radius + 1;
 		colour = generateRandomMixedColor(Color.WHITE);
-		double velocity = Math.random() * 20 + 10;
+		double velocity = Math.random() * 5 + 10;
 		double direction = Math.random() * 2 * Math.PI;
 		vector = new CartesianVector(velocity * Math.cos(direction), velocity
 				* Math.sin(direction));
